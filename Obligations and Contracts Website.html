@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obligations and Contracts Educational Portal - AJ Delos Reyes</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#080d1a',
+                        },
+                        gold: {
+                            300: '#fde047',
+                            400: '#fbbf24',
+                            500: '#d97706',
+                            600: '#b45309',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                        cinzel: ['Cinzel', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #fde047 0%, #d97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border-glow {
+            box-shadow: 0 0 25px rgba(217, 119, 6, 0.15);
+        }
+        .nav-tab.active {
+            border-bottom: 3px solid #d97706;
+            color: #fbbf24;
+            background-color: rgba(30, 41, 59, 0.6);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080d1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b45309;
+        }
+        /* Flashcard 3D flip */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+        /* Printable certificate & proposal styling */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printable-certificate, #printable-certificate *,
+            #proposal-print-area, #proposal-print-area * {
+                visibility: visible;
+            }
+            #printable-certificate, #proposal-print-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 20px;
+                background: white !important;
+                color: black !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-navy-950 dark:bg-navy-950 text-slate-200 font-sans min-h-screen flex flex-col selection:bg-gold-500 selection:text-navy-950 transition-colors duration-300">
+
+    <!-- Top Academic Header Bar -->
+    <header class="bg-navy-900 border-b border-slate-800 text-xs sm:text-sm py-2.5 px-4 sticky top-0 z-50 backdrop-blur-md bg-opacity-95">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center space-x-3">
+                <span class="bg-gold-600/20 text-gold-400 font-semibold px-2.5 py-0.5 rounded border border-gold-500/30 text-xs flex items-center gap-1.5">
+                    <i class="fa-solid fa-graduation-cap"></i> Student Web Project
+                </span>
+                <span class="text-slate-600 hidden sm:inline">|</span>
+                <span class="text-slate-200 font-medium">
+                    <i class="fa-solid fa-user-gear text-gold-400 mr-1"></i> <strong class="text-white">Delos Reyes, AJ</strong>
+                    <span class="text-xs text-slate-400 ml-1">(ID: 23-00089)</span>
+                </span>
+            </div>
+            
+            <div class="flex items-center space-x-3 text-xs">
+                <span class="hidden lg:inline text-slate-400"><i class="fa-solid fa-book text-gold-400 mr-1"></i> BS IT - 4th Year</span>
+                <span class="hidden md:inline text-slate-400"><i class="fa-solid fa-calendar text-gold-400 mr-1"></i> SY 2026–2027</span>
+                
+                <button onclick="openProposalModal()" class="bg-navy-800 hover:bg-slate-700 text-gold-400 border border-gold-500/30 px-2.5 py-1 rounded text-xs transition-colors flex items-center gap-1">
+                    <i class="fa-solid fa-file-invoice"></i> Project Proposal
+                </button>
+
+                <button onclick="toggleDarkMode()" class="bg-navy-800 p-1.5 rounded-lg border border-slate-700 text-slate-300 hover:text-gold-400 transition-colors" title="Toggle Theme">
+                    <i id="theme-icon" class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner with Metrics -->
+    <section class="bg-gradient-to-b from-navy-900 via-navy-900 to-navy-950 border-b border-slate-800 py-8 px-4 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#d97706_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-8 relative z-10">
+            <div class="space-y-4 text-center lg:text-left max-w-3xl">
+                <div class="inline-flex items-center space-x-2 text-gold-400 text-xs font-semibold tracking-wider uppercase bg-gold-500/10 px-3 py-1 rounded-full border border-gold-500/20">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                    <span>Philippine Civil Code • Book IV Digital Companion</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold tracking-tight text-white">
+                    Obligations & Contracts <span class="gold-gradient-text">Educational Portal</span>
+                </h1>
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                    An interactive legal-tech web application engineered to simplify Civil Code concepts through article exploration, dynamic case simulations, flashcard deck mastery, and interactive quiz evaluations.
+                </p>
+                
+                <!-- Metrics Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                    <div class="bg-navy-950/80 p-2.5 rounded-xl border border-slate-800 text-center">
+                        <span class="text-gold-400 font-bold text-lg font-mono">5</span>
+                        <span class="text-[11px] text-slate-400 block">Learning Modules</span>
+                    </div>
+                    <div class="bg-navy-950/80 p-2.5 rounded-xl border border-slate-800 text-center">
+                        <span class="text-blue-400 font-bold text-lg font-mono">4</span>
+                        <span class="text-[11px] text-slate-400 block">Case Simulations</span>
+                    </div>
+                    <div class="bg-navy-950/80 p-2.5 rounded-xl border border-slate-800 text-center">
+                        <span class="text-emerald-400 font-bold text-lg font-mono">10</span>
+                        <span class="text-[11px] text-slate-400 block">Quiz Questions</span>
+                    </div>
+                    <div class="bg-navy-950/80 p-2.5 rounded-xl border border-slate-800 text-center">
+                        <span class="text-purple-400 font-bold text-lg font-mono">12+</span>
+                        <span class="text-[11px] text-slate-400 block">Latin Maxims</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Universal Search Panel -->
+            <div class="w-full lg:w-96 bg-navy-800/90 p-5 rounded-2xl border border-slate-700 shadow-xl backdrop-blur-sm space-y-3">
+                <label for="global-search" class="text-xs font-bold text-gold-400 uppercase tracking-wider flex items-center justify-between">
+                    <span><i class="fa-solid fa-magnifying-glass mr-1"></i> Universal Explorer</span>
+                    <span class="text-[10px] text-slate-400 lowercase font-normal">Real-time filter</span>
+                </label>
+                <div class="relative">
+                    <input type="text" id="global-search" placeholder="Search Art. 1156, Fortuitous, Novation, Void..." 
+                        class="w-full bg-navy-950 text-white text-sm rounded-xl pl-3 pr-9 py-2.5 border border-slate-700 focus:outline-none focus:border-gold-500 transition-colors">
+                    <button id="clear-search" onclick="clearSearch()" class="hidden absolute right-3 top-3 text-slate-400 hover:text-white text-xs">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="flex flex-wrap gap-1.5 text-[10px] text-slate-400">
+                    <span class="text-slate-500">Popular:</span>
+                    <button onclick="quickSearch('1156')" class="bg-navy-950 hover:bg-slate-800 text-gold-400 px-2 py-0.5 rounded border border-slate-800">Art. 1156</button>
+                    <button onclick="quickSearch('quasi-delict')" class="bg-navy-950 hover:bg-slate-800 text-gold-400 px-2 py-0.5 rounded border border-slate-800">Quasi-Delict</button>
+                    <button onclick="quickSearch('fortuitous')" class="bg-navy-950 hover:bg-slate-800 text-gold-400 px-2 py-0.5 rounded border border-slate-800">Fortuitous</button>
+                    <button onclick="quickSearch('void')" class="bg-navy-950 hover:bg-slate-800 text-gold-400 px-2 py-0.5 rounded border border-slate-800">Void</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="bg-navy-900 border-b border-slate-800 sticky top-12 z-40 shadow-lg">
+        <div class="max-w-7xl mx-auto overflow-x-auto scrollbar-none">
+            <div class="flex whitespace-nowrap min-w-max px-2">
+                <button onclick="switchTab('modules')" id="tab-modules" class="nav-tab active px-4 py-3.5 text-xs sm:text-sm font-semibold text-slate-300 hover:text-gold-400 transition-all flex items-center space-x-2">
+                    <i class="fa-solid fa-book-bookmark text-gold-500"></i>
+                    <span>1. Course Modules</span>
+                </button>
+                <button onclick="switchTab('solver')" id="tab-solver" class="nav-tab px-4 py-3.5 text-xs sm:text-sm font-semibold text-slate-300 hover:text-gold-400 transition-all flex items-center space-x-2">
+                    <i class="fa-solid fa-scale-unbalanced-flip text-gold-500"></i>
+                    <span>2. Case Solver</span>
+                </button>
+                <button onclick="switchTab('flashcards')" id="tab-flashcards" class="nav-tab px-4 py-3.5 text-xs sm:text-sm font-semibold text-slate-300 hover:text-gold-400 transition-all flex items-center space-x-2">
+                    <i class="fa-solid fa-layer-group text-gold-500"></i>
+                    <span>3. Flashcards Deck</span>
+                </button>
+                <button onclick="switchTab('quiz')" id="tab-quiz" class="nav-tab px-4 py-3.5 text-xs sm:text-sm font-semibold text-slate-300 hover:text-gold-400 transition-all flex items-center space-x-2">
+                    <i class="fa-solid fa-award text-gold-500"></i>
+                    <span>4. Practice Quiz Suite</span>
+                </button>
+                <button onclick="switchTab('glossary')" id="tab-glossary" class="nav-tab px-4 py-3.5 text-xs sm:text-sm font-semibold text-slate-300 hover:text-gold-400 transition-all flex items-center space-x-2">
+                    <i class="fa-solid fa-spell-check text-gold-500"></i>
+                    <span>5. Legal Glossary</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- Global No Results Notification -->
+        <div id="no-results" class="hidden bg-navy-900 border border-slate-800 rounded-2xl p-8 text-center space-y-3">
+            <i class="fa-solid fa-magnifying-glass-slash text-4xl text-gold-500"></i>
+            <h3 class="text-xl font-bold text-white">No Matching Legal Topics Found</h3>
+            <p class="text-sm text-slate-400">Try searching for terms like "Article 1156", "Novation", "Consent", "Solidary", or "Rescissible".</p>
+            <button onclick="clearSearch()" class="bg-gold-600 hover:bg-gold-500 text-navy-950 font-bold text-xs px-4 py-2 rounded-lg transition-colors">
+                Reset Universal Search
+            </button>
+        </div>
+
+        <!-- ==================== SECTION 1: EDUCATIONAL MODULES ==================== -->
+        <section id="modules" class="tab-content space-y-8">
+            <!-- Article 1156 Feature Banner -->
+            <div class="searchable-card bg-gradient-to-r from-navy-900 via-slate-900 to-navy-900 p-6 sm:p-8 rounded-2xl border border-gold-500/30 gold-border-glow relative overflow-hidden">
+                <div class="absolute -right-8 -bottom-8 text-slate-800/20 text-9xl font-serif select-none pointer-events-none">§</div>
+                <div class="relative z-10 space-y-3">
+                    <div class="inline-flex items-center space-x-2 text-gold-400 text-xs font-bold uppercase tracking-wider bg-gold-500/10 px-3 py-1 rounded-full border border-gold-500/20">
+                        <i class="fa-solid fa-gavel"></i>
+                        <span>Article 1156 • Civil Code of the Philippines</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-serif font-bold text-white">Definition of an Obligation</h2>
+                    <blockquote class="text-lg sm:text-xl font-serif italic text-gold-300 border-l-4 border-gold-500 pl-4 py-2 bg-navy-950/50 rounded-r-lg">
+                        "An obligation is a juridical necessity to give, to do or not to do."
+                    </blockquote>
+                    <p class="text-slate-300 text-sm leading-relaxed max-w-4xl">
+                        <strong>Juridical Necessity:</strong> In case of non-compliance, the courts of justice may be called upon to enforce performance or recover damages for breach.
+                    </p>
+                </div>
+            </div>
+
+            <!-- MODULE 1: ESSENTIAL ELEMENTS OF AN OBLIGATION -->
+            <div class="searchable-card bg-navy-900 p-6 rounded-2xl border border-slate-800 space-y-4">
+                <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+                    <span class="text-xs font-bold text-gold-400 uppercase tracking-widest"><i class="fa-solid fa-cubes mr-1"></i> Module 1</span>
+                    <span class="text-xs bg-navy-950 text-slate-400 px-2.5 py-0.5 rounded border border-slate-800">Four Requisites</span>
+                </div>
+                <h3 class="text-xl font-serif font-bold text-white">Essential Elements (Requisites) of an Obligation</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-navy-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                        <span class="text-xs font-bold text-gold-400 uppercase">1. Active Subject</span>
+                        <h4 class="text-white font-bold text-sm">Creditor / Obligee</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">The person who has the legal right to demand the performance of the obligation.</p>
+                    </div>
+                    <div class="bg-navy-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                        <span class="text-xs font-bold text-gold-400 uppercase">2. Passive Subject</span>
+                        <h4 class="text-white font-bold text-sm">Debtor / Obligor</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">The person bound to perform the prestation (to give, to do, or not to do).</p>
+                    </div>
+                    <div class="bg-navy-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                        <span class="text-xs font-bold text-gold-400 uppercase">3. Object / Prestation</span>
+                        <h4 class="text-white font-bold text-sm">Subject Matter</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">The conduct or performance required (giving a thing, rendering service, or refraining from an act).</p>
+                    </div>
+                    <div class="bg-navy-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                        <span class="text-xs font-bold text-gold-400 uppercase">4. Juridical Tie</span>
+                        <h4 class="text-white font-bold text-sm">Efficient Cause</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">The legal relation created by law, contract, quasi-contract, delict, or quasi-delict.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODULE 2: FIVE SOURCES OF OBLIGATIONS (ART. 1157) -->
+            <div class="searchable-card bg-navy-900 p-6 rounded-2xl border border-slate-800 space-y-4">
+                <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+                    <span class="text-xs font-bold text-gold-400 uppercase tracking-widest"><i class="fa-solid fa-sitemap mr-1"></i> Module 2</span>
+                    <span class="text-xs bg-navy-950 text-slate-400 px-2.5 py-0.5 rounded border border-slate-800">Art. 1157</span>
+                </div>
+                <h3 class="text-xl font-serif font-bold text-white">The 5 Sources of Obligations</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="bg-navy-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                        <span class="text-xs font-bold text-blue-400">1. LAW (Ex Lege)</span>
+                        <p class="text-xs text-slate-300">Imposed directly by statutory provisions and cannot be presumed.</p>
+                        <span class="text-[11px] text-slate-400 block italic">Ex: Obligation to pay taxes under the Tax Code.</span>
+                    </div>
+                    <div class="bg-navy-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                        <span class="text-xs font-bold text-emerald-400">2. CONTRACTS (Ex Contractu)</span>
+                        <p class="text-xs text-slate-300">Arise from the meeting of minds and have the force of law between parties (Art. 1159).</p>
+                        <span class="text-[11px] text-slate-400 block italic">Ex: Commercial loan agreement or lease.</span>
+                    </div>
+                    <div class="bg-navy-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                        <span class="text-xs font-bold text-gold-400">3. QUASI-CONTRACTS</span>
+                        <p class="text-xs text-slate-300">Lawful, voluntary, and unilateral acts to prevent unjust enrichment (Art. 2142).</p>
+                        <span class="text-[11px] text-slate-400 block italic">Ex: Solutio Indebiti (wrong payment) & Negotiorum Gestio.</span>
+                    </div>
+                    <div class="bg-navy-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                        <span class="text-xs font-bold text-rose-400">4. DELICTS (Ex Maleficio)</span>
+                        <p class="text-xs text-slate-300">Civil liabilities arising from criminal offenses under the Revised Penal Code (Art. 100 RPC).</p>
+                        <span class="text-[11px] text-slate-400 block italic">Ex: Obligation to pay restitution after theft conviction.</span>
+                    </div>
+                    <div class="bg-navy-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                        <span class="text-xs font-bold text-purple-400">5. QUASI-DELICTS (Torts)</span>
+                        <p class="text-xs text-slate-300">Acts or omissions causing damage through fault or negligence where no contract exists (Art. 2176).</p>
+                        <span class="text-[11px] text-slate-400 block italic">Ex: Vehicular collision caused by reckless driving.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODULE 3: KINDS OF OBLIGATIONS -->
+            <div class="searchable-card bg-navy-900 p-6 rounded-2xl border border-slate-800 space-y-4">
+                <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+                    <span class="text-xs font-bold text-gold-400 uppercase tracking-widest"><i class="fa-solid fa-diagram-project mr-1"></i> Module 3</span>
+                    <span class="text-xs bg-navy-950 text-slate-400 px-2.5 py-0.5 rounded border border-slate-800">Primary Classification</span>
+                </div>
+                <h3 class="text-xl font-serif font-bold text-white">Primary Kinds of Obligations</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <div class="bg-navy-950 p-4 rounded-xl border border-slate-800 space-y-1">
+                        <strong class="text-gold-400 font-bold block text-sm">Pure vs. Conditional Obligations</strong>
+                        <p class="text-slate-300">Pure obligations are demandable at once. Conditional obligations depend upon a future and uncertain event (Suspensive or Resolutory).</p>
+                    </div>
+                    <div class="bg-navy-950 p-4 rounded-xl border border-slate-800 space-y-1">
+                        <strong class="text-gold-400 font-bold block text-sm">Joint vs. Solidary Obligations</strong>
+                        <p class="text-slate-300">Joint obligations divide debt proportionally among co-debtors. Solidary obligations allow demanding full debt from any single debtor.</p>
+                    </div>
+                    <div class="bg-navy-950 p-4 rounded-xl border border-slate-800 space-y-1">
+                        <strong class="text-gold-400 font-bold block text-sm">Alternative vs. Facultative Obligations</strong>
+                        <p class="text-slate-300">Alternative: Debtor can perform one of several prestations. Facultative: Only one prestation is due, but a substitute may be rendered.</p>
+                    </div>
+                    <div class="bg-navy-950 p-4 rounded-xl border border-slate-800 space-y-1">
+                        <strong class="text-gold-400 font-bold block text-sm">Obligations with a Penal Clause</strong>
+                        <p class="text-slate-300">Contains an accessory undertaking (penalty) to guarantee enforcement and fix liquidated damages in case of breach.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODULE 4: EXTINGUISHMENT OF OBLIGATIONS (ART. 1231) -->
+            <div class="searchable-card bg-navy-900 p-6 rounded-2xl border border-slate-800 space-y-4">
+                <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+                    <span class="text-xs font-bold text-gold-400 uppercase tracking-widest"><i class="fa-solid fa-circle-xmark mr-1"></i> Module 4</span>
+                    <span class="text-xs bg-navy-950 text-slate-400 px-2.5 py-0.5 rounded border border-slate-800">Art. 1231 Modes</span>
+                </div>
+                <h3 class="text-xl font-serif font-bold text-white">Modes of Extinguishing Obligations</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+                    <div class="bg-navy-950 p-3.5 rounded-xl border border-slate-800 space-y-1">
+                        <strong class="text-emerald-400 block">1. Payment or Performance</strong>
+                        <span class="text-slate-300">Complete delivery of the thing or rendering of service due.</span>
+                    </div>
+                    <div class="bg-navy-950 p-3.5 rounded-xl border border-slate-800 space-y-1">
+                        <strong class="text-emerald-400 block">2. Loss of the Thing Due</strong>
+                        <span class="text-slate-300">Physical loss, destruction, or legal impossibility without debtor's fault.</span>
+                    </div>
+                    <div class="bg-navy-950 p-3.5 rounded-xl border border-slate-800 space-y-1">
+                        <strong class="text-emerald-400 block">3. Condonation / Remission</strong>
+                        <span class="text-slate-300">Gratuitous forgiveness or abandonment of debt by the creditor.</span>
+                    </div>
+                    <div class="bg-navy-950 p-3.5 rounded-xl border border-slate-800 space-y-1">
+                        <strong class="text-emerald-400 block">4. Confusion or Merger</strong>
+                        <span class="text-slate-300">When qualities of creditor and debtor are united in the same person.</span>
+                    </div>
+                    <div class="bg-navy-950 p-3.5 rounded-xl border border-slate-800 space-y-1">
+                        <strong class="text-emerald-400 block">5. Compensation</strong>
+                        <span class="text-slate-300">When two persons in their own right are reciprocal creditors and debtors of each other.</span>
+                    </div>
+                    <div class="bg-navy-950 p-3.5 rounded-xl border border-slate-800 space-y-1">
+                        <strong class="text-emerald-400 block">6. Novation</strong>
+                        <span class="text-slate-300">Modification or substitution of an obligation by a new valid one.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODULE 5: CONTRACTS & DEFECTIVE CONTRACTS -->
+            <div class="searchable-card bg-navy-900 p-6 rounded-2xl border border-slate-800 space-y-4">
+                <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+                    <span class="text-xs font-bold text-gold-400 uppercase tracking-widest"><i class="fa-solid fa-file-contract mr-1"></i> Module 5</span>
+                    <span class="text-xs bg-navy-950 text-slate-400 px-2.5 py-0.5 rounded border border-slate-800">Art. 1305 & Defective Contracts</span>
+                </div>
+                <h3 class="text-xl font-serif font-bold text-white">Contracts & Defective Contracts Comparison</h3>
+                
+                <div class="bg-navy-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <span class="text-xs font-bold text-gold-400 uppercase">Essential Requisites of Contracts (Art. 1318)</span>
+                    <p class="text-xs text-slate-300">No contract exists unless three elements concur: <strong>(1) Consent</strong> of contracting parties, <strong>(2) Object Certain</strong> which is the subject matter, and <strong>(3) Cause</strong> of the obligation established.</p>
+                </div>
+
+                <!-- Defective Contracts Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs text-slate-300 border-collapse">
+                        <thead>
+                            <tr class="bg-navy-950 border-b border-slate-800 text-gold-400 uppercase font-bold">
+                                <th class="p-3">Category</th>
+                                <th class="p-3">Status / Validity</th>
+                                <th class="p-3">Defect</th>
+                                <th class="p-3">Remedy / Cure</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800">
+                            <tr class="hover:bg-navy-950/50">
+                                <td class="p-3 font-bold text-white">Rescissible</td>
+                                <td class="p-3 text-emerald-400">Valid until rescinded</td>
+                                <td class="p-3">Financial lesion or damage to a party/3rd person</td>
+                                <td class="p-3">Action for Rescission (Art. 1380)</td>
+                            </tr>
+                            <tr class="hover:bg-navy-950/50">
+                                <td class="p-3 font-bold text-white">Voidable</td>
+                                <td class="p-3 text-amber-400">Valid until annulled</td>
+                                <td class="p-3">Vitiated consent (fraud, mistake, violence) or incapacity</td>
+                                <td class="p-3">Annulment or Ratification (Art. 1390)</td>
+                            </tr>
+                            <tr class="hover:bg-navy-950/50">
+                                <td class="p-3 font-bold text-white">Unenforceable</td>
+                                <td class="p-3 text-purple-400">Cannot be enforced in court</td>
+                                <td class="p-3">Statute of Frauds breach or unauthorized contract</td>
+                                <td class="p-3">Ratification or written note (Art. 1403)</td>
+                            </tr>
+                            <tr class="hover:bg-navy-950/50">
+                                <td class="p-3 font-bold text-white">Void / Inexistent</td>
+                                <td class="p-3 text-rose-400">No legal effect (Void Ab Initio)</td>
+                                <td class="p-3">Illegal object/cause or absolute simulation</td>
+                                <td class="p-3">Cannot be ratified or cured (Art. 1409)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 2: CASE SCENARIO SOLVER ==================== -->
+        <section id="solver" class="tab-content hidden space-y-6">
+            <div class="bg-navy-900 p-6 rounded-2xl border border-slate-800 space-y-2">
+                <span class="text-xs font-bold text-gold-400 uppercase tracking-widest"><i class="fa-solid fa-scale-unbalanced-flip"></i> Decision Tree Simulator</span>
+                <h2 class="text-2xl font-serif font-bold text-white">Interactive Legal Case Scenario Solver</h2>
+                <p class="text-slate-400 text-sm">Read the factual situation, choose your legal diagnosis, and evaluate the Civil Code reasoning.</p>
+            </div>
+
+            <!-- Scenario Navigation Pills -->
+            <div class="flex flex-wrap gap-2" id="scenario-selector">
+                <!-- Dynamically populated scenario buttons -->
+            </div>
+
+            <!-- Case Solver Card -->
+            <div id="active-scenario-card" class="bg-navy-900 p-6 sm:p-8 rounded-2xl border border-gold-500/30 space-y-6">
+                <!-- Injected via JS -->
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 3: FLASHCARDS DECK ==================== -->
+        <section id="flashcards" class="tab-content hidden space-y-6">
+            <div class="bg-navy-900 p-6 rounded-2xl border border-slate-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <span class="text-xs font-bold text-gold-400 uppercase tracking-widest"><i class="fa-solid fa-layer-group"></i> Active Study Deck</span>
+                    <h2 class="text-2xl font-serif font-bold text-white">Interactive Flashcards & Progress Tracking</h2>
+                    <p class="text-slate-400 text-sm">Flip cards to reveal answers. Filter deck by difficulty or study bookmarked items.</p>
+                </div>
+
+                <!-- Deck Filters -->
+                <div class="flex flex-wrap items-center gap-2">
+                    <button onclick="filterDeck('all')" id="btn-deck-all" class="deck-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-gold-600 text-navy-950">All Cards</button>
+                    <button onclick="filterDeck('basic')" id="btn-deck-basic" class="deck-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-navy-800 text-slate-300 border border-slate-700">Basic</button>
+                    <button onclick="filterDeck('intermediate')" id="btn-deck-intermediate" class="deck-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-navy-800 text-slate-300 border border-slate-700">Intermediate</button>
+                    <button onclick="filterDeck('advanced')" id="btn-deck-advanced" class="deck-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-navy-800 text-slate-300 border border-slate-700">Advanced</button>
+                </div>
+            </div>
+
+            <!-- Flashcard Visual & Controls -->
+            <div class="max-w-2xl mx-auto space-y-4">
+                <div class="flex justify-between items-center text-xs text-slate-400 px-1">
+                    <span id="deck-progress-text">Card 1 of 8</span>
+                    <span id="deck-level-badge" class="bg-gold-500/20 text-gold-400 font-semibold px-2 py-0.5 rounded border border-gold-500/30 uppercase text-[10px]">Basic</span>
+                </div>
+
+                <!-- 3D Flip Flashcard -->
+                <div id="flashcard-box" onclick="flipActiveCard()" class="perspective-1000 cursor-pointer h-72 w-full">
+                    <div id="flashcard-inner" class="relative w-full h-full transform-style-3d transition-transform duration-500 shadow-2xl rounded-2xl">
+                        <!-- Front Side -->
+                        <div class="absolute inset-0 backface-hidden bg-gradient-to-br from-navy-900 to-slate-900 border-2 border-gold-500/40 rounded-2xl p-8 flex flex-col justify-between items-center text-center">
+                            <span class="text-xs text-gold-400 font-bold uppercase tracking-widest flex items-center gap-1">
+                                <i class="fa-solid fa-circle-question"></i> Question / Term
+                            </span>
+                            <h3 id="card-front" class="text-xl sm:text-2xl font-serif font-bold text-white my-auto leading-snug">
+                                Loading Flashcard...
+                            </h3>
+                            <span class="text-xs text-slate-400"><i class="fa-solid fa-hand-pointer mr-1"></i> Click to flip card</span>
+                        </div>
+                        <!-- Back Side -->
+                        <div class="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-slate-900 to-navy-900 border-2 border-gold-400 rounded-2xl p-8 flex flex-col justify-between items-center text-center">
+                            <span class="text-xs text-emerald-400 font-bold uppercase tracking-widest flex items-center gap-1">
+                                <i class="fa-solid fa-lightbulb"></i> Legal Definition & Basis
+                            </span>
+                            <div class="my-auto space-y-2">
+                                <p id="card-back" class="text-slate-200 text-sm sm:text-base leading-relaxed">
+                                    Loading Definition...
+                                </p>
+                                <span id="card-article" class="inline-block text-xs text-gold-400 font-semibold bg-navy-950 px-2.5 py-1 rounded border border-gold-500/30">
+                                    Art. Reference
+                                </span>
+                            </div>
+                            <span class="text-xs text-slate-400"><i class="fa-solid fa-rotate mr-1"></i> Click to flip back</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation & Action Controls -->
+                <div class="flex justify-between items-center gap-4 pt-2">
+                    <button onclick="prevActiveCard()" class="bg-navy-900 hover:bg-slate-800 text-slate-200 border border-slate-700 px-4 py-2 rounded-xl text-xs font-bold transition-colors">
+                        <i class="fa-solid fa-chevron-left mr-1"></i> Previous
+                    </button>
+                    <button onclick="markMastered()" class="bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/40 px-3 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-1">
+                        <i class="fa-solid fa-check"></i> <span id="master-btn-text">Mark Mastered</span>
+                    </button>
+                    <button onclick="nextActiveCard()" class="bg-navy-900 hover:bg-slate-800 text-slate-200 border border-slate-700 px-4 py-2 rounded-xl text-xs font-bold transition-colors">
+                        Next <i class="fa-solid fa-chevron-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 4: PRACTICE QUIZ SUITE & CERTIFICATE ==================== -->
+        <section id="quiz" class="tab-content hidden space-y-8">
+            <div class="bg-navy-900 p-6 rounded-2xl border border-slate-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <span class="text-xs font-bold text-gold-400 uppercase tracking-widest"><i class="fa-solid fa-award"></i> Comprehensive Knowledge Check</span>
+                    <h2 class="text-2xl font-serif font-bold text-white">Practice Quiz Suite & Certification</h2>
+                    <p class="text-slate-400 text-sm">Multiple-choice, true/false, and practical scenario evaluation. Achieve 70%+ to unlock official completion certificate.</p>
+                </div>
+                <div class="bg-navy-950 px-4 py-2.5 rounded-xl border border-slate-800 text-xs">
+                    <span class="text-slate-400 block">Examinee:</span>
+                    <strong class="text-gold-400 font-bold text-sm">Delos Reyes, AJ (23-00089)</strong>
+                </div>
+            </div>
+
+            <!-- Quiz Questions Container -->
+            <div id="quiz-questions-list" class="space-y-6">
+                <!-- Dynamically injected via JS -->
+            </div>
+
+            <!-- Quiz Actions & Grading -->
+            <div class="bg-navy-900 p-6 rounded-2xl border border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <button onclick="gradePracticeQuiz()" class="w-full sm:w-auto bg-gold-600 hover:bg-gold-500 text-navy-950 font-bold px-8 py-3 rounded-xl transition-colors shadow-lg flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-check-double"></i>
+                    <span>Grade Quiz & Generate Certificate</span>
+                </button>
+                <div id="quiz-score-display" class="hidden text-right">
+                    <span class="text-xs text-slate-400 block">Final Score:</span>
+                    <span id="quiz-score-num" class="text-2xl font-bold font-mono text-gold-400">0 / 10</span>
+                </div>
+            </div>
+
+            <!-- PRINTABLE CERTIFICATE WRAPPER -->
+            <div id="certificate-wrapper" class="hidden space-y-4 pt-4">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xl font-serif font-bold text-white"><i class="fa-solid fa-certificate text-gold-400 mr-2"></i> Official Completion Certificate</h3>
+                    <button onclick="window.print()" class="bg-navy-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-4 py-2 rounded-lg text-xs font-bold transition-colors">
+                        <i class="fa-solid fa-print mr-1"></i> Print / Download PDF
+                    </button>
+                </div>
+
+                <!-- Certificate Visual Box -->
+                <div id="printable-certificate" class="bg-white text-slate-900 p-8 sm:p-12 rounded-2xl border-8 border-navy-900 shadow-2xl relative overflow-hidden text-center space-y-6">
+                    <!-- Corner Accents -->
+                    <div class="absolute top-3 left-3 w-12 h-12 border-t-4 border-l-4 border-gold-600"></div>
+                    <div class="absolute top-3 right-3 w-12 h-12 border-t-4 border-r-4 border-gold-600"></div>
+                    <div class="absolute bottom-3 left-3 w-12 h-12 border-b-4 border-l-4 border-gold-600"></div>
+                    <div class="absolute bottom-3 right-3 w-12 h-12 border-b-4 border-r-4 border-gold-600"></div>
+
+                    <div class="space-y-2">
+                        <div class="text-gold-600 text-4xl mb-1"><i class="fa-solid fa-scale-balanced"></i></div>
+                        <h4 class="text-xs uppercase tracking-widest font-bold text-slate-500 font-cinzel">Academic Certificate of Achievement</h4>
+                        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-navy-900">Certificate of Completion</h2>
+                        <p class="text-xs text-slate-500 italic">This is to certify that</p>
+                    </div>
+
+                    <div class="py-2 border-b-2 border-gold-500 max-w-md mx-auto">
+                        <h3 class="text-2xl sm:text-3xl font-serif font-bold text-gold-600">Delos Reyes, AJ</h3>
+                        <p class="text-xs text-slate-600 font-mono mt-1">Student ID: 23-00089 • BS Information Technology (4th Year)</p>
+                    </div>
+
+                    <p class="text-xs sm:text-sm text-slate-700 max-w-xl mx-auto leading-relaxed">
+                        has demonstrated academic proficiency by successfully completing the comprehensive evaluation for <strong>Obligations and Contracts (Philippine Civil Code Book IV)</strong> educational project on <span id="cert-issue-date" class="font-bold">SY 2026–2027</span>.
+                    </p>
+
+                    <div class="pt-6 grid grid-cols-2 gap-8 max-w-md mx-auto text-xs">
+                        <div class="border-t border-slate-400 pt-2">
+                            <strong class="block text-slate-900 font-serif">Obligations & Contracts Web Portal</strong>
+                            <span class="text-slate-500 text-[10px]">BSIT Educational Artifact</span>
+                        </div>
+                        <div class="border-t border-slate-400 pt-2">
+                            <strong class="block text-slate-900 font-serif">Verified Academic Artifact</strong>
+                            <span class="text-slate-500 text-[10px]">SY 2026–2027</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 5: LEGAL GLOSSARY ==================== -->
+        <section id="glossary" class="tab-content hidden space-y-6">
+            <div class="bg-navy-900 p-6 rounded-2xl border border-slate-800 space-y-2">
+                <span class="text-xs font-bold text-gold-400 uppercase tracking-widest"><i class="fa-solid fa-spell-check"></i> Reference Dictionary</span>
+                <h2 class="text-2xl font-serif font-bold text-white">Legal Glossary & Latin Maxims</h2>
+                <p class="text-slate-400 text-sm">A searchable reference cheat sheet of essential Latin terms and key technical civil law phrases.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="glossary-grid">
+                <!-- Injected via JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PROJECT PROPOSAL MODAL -->
+    <div id="proposal-modal" class="fixed inset-0 bg-navy-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-navy-900 border border-slate-700 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 space-y-6 shadow-2xl relative">
+            <button onclick="closeProposalModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="proposal-print-area" class="space-y-6">
+                <div class="border-b border-slate-800 pb-4 text-center sm:text-left">
+                    <span class="text-xs font-bold text-gold-400 uppercase tracking-widest"><i class="fa-solid fa-file-lines mr-1"></i> Academic Project Proposal</span>
+                    <h2 class="text-2xl font-serif font-bold text-white mt-1">Obligations and Contracts Website</h2>
+                    <p class="text-xs text-slate-400 mt-1">Subject: Obligations and Contracts • School Year: 2026–2027</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs bg-navy-950 p-4 rounded-xl border border-slate-800">
+                    <div>
+                        <span class="text-slate-400 block">Student Name:</span>
+                        <strong class="text-white text-sm">Delos Reyes, AJ</strong>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block">Student Number:</span>
+                        <strong class="text-gold-400 text-sm">23-00089</strong>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block">Year Level & Course:</span>
+                        <strong class="text-white">4th Year, BS Information Technology</strong>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block">Academic Term:</span>
+                        <strong class="text-white">SY 2026–2027</strong>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="font-bold text-gold-400 text-sm uppercase tracking-wider">Project Description</h4>
+                    <p class="text-xs text-slate-300 leading-relaxed bg-navy-950 p-4 rounded-xl border border-slate-800">
+                        This project is an interactive web application designed to help students learn about Obligations and Contracts (Philippine Civil Code Book IV). It integrates key statutory provisions, simplified explanations, real-world case simulations, and practice tools. Created using HTML, CSS (Tailwind), and JavaScript to make learning law intuitive and accessible.
+                    </p>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="font-bold text-gold-400 text-sm uppercase tracking-wider">Project Objectives</h4>
+                    <ul class="space-y-2 text-xs text-slate-300">
+                        <li class="flex items-start gap-2 bg-navy-950 p-3 rounded-lg border border-slate-800">
+                            <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5"></i>
+                            <span>To help students understand the basic concepts of Obligations and Contracts under Philippine law.</span>
+                        </li>
+                        <li class="flex items-start gap-2 bg-navy-950 p-3 rounded-lg border border-slate-800">
+                            <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5"></i>
+                            <span>To provide simple explanations and practical examples of important legal topics.</span>
+                        </li>
+                        <li class="flex items-start gap-2 bg-navy-950 p-3 rounded-lg border border-slate-800">
+                            <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5"></i>
+                            <span>To utilize modern web development techniques to create a useful educational platform.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-800 flex justify-end gap-3">
+                <button onclick="window.print()" class="bg-navy-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-4 py-2 rounded-xl text-xs font-bold transition-colors">
+                    <i class="fa-solid fa-print mr-1"></i> Print Proposal
+                </button>
+                <button onclick="closeProposalModal()" class="bg-gold-600 hover:bg-gold-500 text-navy-950 font-bold px-5 py-2 rounded-xl text-xs transition-colors">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-navy-900 border-t border-slate-800 py-6 px-4 text-xs text-slate-400 mt-auto">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                <p class="text-slate-300 font-semibold">Obligations & Contracts Educational Web App</p>
+                <p class="text-slate-400 mt-0.5">Developed by <strong>Delos Reyes, AJ</strong> • ID: 23-00089</p>
+            </div>
+            <div class="text-right text-slate-400">
+                <p>BSIT 4th Year • SY 2026–2027</p>
+                <p class="mt-0.5">Civil Code of the Philippines (Republic Act No. 386)</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Data & Logic -->
+    <script>
+        // Scenario Solver Data
+        const scenariosData = [
+            {
+                id: 0,
+                shortTitle: "GCash Transfer Error",
+                title: "Accidental Mobile Wallet Money Transfer",
+                badge: "Quasi-Contract",
+                facts: "Mark accidentally sent ₱8,000 via GCash to Sarah's mobile number by typing one wrong digit. Sarah notices the money and decides to spend it on groceries.",
+                choices: [
+                    { text: "Sarah can keep the money because it was Mark's typing mistake.", correct: false, feedback: "Incorrect. Mistake does not grant legal ownership of another's money." },
+                    { text: "Sarah is legally obligated to return the ₱8,000 under Solutio Indebiti.", correct: true, feedback: "Correct! Solutio Indebiti (Art. 2154) obligates anyone who receives payment by mistake to return it to avoid unjust enrichment." },
+                    { text: "Mark must file a criminal case for theft immediately without asking.", correct: false, feedback: "Incorrect. The primary initial recourse is a civil claim under Quasi-Contract." }
+                ],
+                legalBasis: "Article 2154 (Solutio Indebiti) - If something is received when there is no right to demand it, and it was unduly delivered through mistake, the obligation to return it arises."
+            },
+            {
+                id: 1,
+                shortTitle: "Apartment Rental Breach",
+                title: "Tenant Non-Payment & Eviction Notice",
+                badge: "Contract Breach",
+                facts: "Leo signed a 1-year apartment lease at ₱15,000/month. He stopped paying rent for 3 consecutive months without notice.",
+                choices: [
+                    { text: "The landlord can immediately lock Leo out and seize his belongings without notice.", correct: false, feedback: "Incorrect. Landlords cannot take the law into their own hands; legal process is required." },
+                    { text: "The landlord can exercise legal demand and seek rescission of lease with damages under Art. 1191.", correct: true, feedback: "Correct! In reciprocal obligations, non-compliance entitles the injured party to seek fulfillment or rescission with damages." },
+                    { text: "The lease contract automatically becomes void ab initio.", correct: false, feedback: "Incorrect. The contract was valid; it is breached." }
+                ],
+                legalBasis: "Article 1191 - Implied power to rescind reciprocal obligations when one party defaults."
+            },
+            {
+                id: 2,
+                shortTitle: "Vehicle Collision Tort",
+                title: "Distracted Driving & Property Damage",
+                badge: "Quasi-Delict",
+                facts: "While replying to a text message, Dan ran a red light and crashed into Ana's parked vehicle, causing ₱35,000 in damages.",
+                choices: [
+                    { text: "Dan is not liable because Ana was not inside her vehicle during the collision.", correct: false, feedback: "Incorrect. Property damage caused by negligence creates liability regardless of personal injury." },
+                    { text: "Dan is civilly liable for damages under Quasi-Delict (Art. 2176) due to negligence.", correct: true, feedback: "Correct! Negligence causing damage where no prior contract exists creates quasi-delict liability." },
+                    { text: "Ana must pay half the repair costs because she parked near a busy road.", correct: false, feedback: "Incorrect. Ana was legally parked; full fault lies with Dan's reckless driving." }
+                ],
+                legalBasis: "Article 2176 (Quasi-Delict) - Whoever by act or omission causes damage to another, there being fault or negligence, is obliged to pay for the damage done."
+            },
+            {
+                id: 3,
+                shortTitle: "Force Majeure Delivery",
+                title: "Typhoon Destroying Goods in Transit",
+                badge: "Caso Fortuito",
+                facts: "A courier company was delivering a specific antique clock when a category-5 super typhoon flooded the transport vessel, destroying the item.",
+                choices: [
+                    { text: "The courier is automatically liable for full damages regardless of the typhoon.", correct: false, feedback: "Incorrect. Fortuitous events generally extinguish obligations unless there was prior delay or negligence." },
+                    { text: "The obligation is extinguished by fortuitous event (Art. 1174) provided the courier was not in delay or negligent.", correct: true, feedback: "Correct! Caso fortuito exempts the debtor if the event was extraordinary, unforeseen, and occurred without fault." },
+                    { text: "The courier must replace the antique clock with a brand new modern watch.", correct: false, feedback: "Incorrect. Extinguishment applies to determinate specific items." }
+                ],
+                legalBasis: "Article 1174 - No person shall be responsible for fortuitous events which could not be foreseen or avoided."
+            }
+        ];
+
+        // Flashcards Deck Data
+        const flashcardDeck = [
+            { level: "basic", front: "What is an Obligation (Art. 1156)?", back: "A juridical necessity to give, to do or not to do.", article: "Art. 1156" },
+            { level: "basic", front: "Name the 5 Sources of Obligations.", back: "1. Law, 2. Contracts, 3. Quasi-contracts, 4. Delicts, 5. Quasi-delicts.", article: "Art. 1157" },
+            { level: "intermediate", front: "What is Solutio Indebiti?", back: "The obligation to return money or property delivered by mistake when there was no right to demand it.", article: "Art. 2154" },
+            { level: "intermediate", front: "What is Negotiorum Gestio?", back: "Voluntarily managing another's abandoned property or business without authorization to prevent loss.", article: "Art. 2144" },
+            { level: "advanced", front: "Explain Mora Solvendi vs Mora Accipiendi.", back: "Mora Solvendi is delay on the part of the debtor; Mora Accipiendi is delay on the part of the creditor to accept performance.", article: "Art. 1169" },
+            { level: "advanced", front: "What are the 3 Essential Requisites of a Contract?", back: "1. Consent of contracting parties\n2. Object certain\n3. Cause of obligation", article: "Art. 1318" },
+            { level: "intermediate", front: "Define Solidary Obligation.", back: "An obligation where each debtor is liable for the ENTIRE obligation, and each creditor can demand full compliance.", article: "Art. 1207" },
+            { level: "advanced", front: "What is a Void Ab Initio contract?", back: "A contract that produces NO legal effect whatsoever from the beginning due to illegal object or cause.", article: "Art. 1409" }
+        ];
+
+        // Quiz Questions Data
+        const quizData = [
+            {
+                q: "1. Article 1156 defines an obligation as a juridical necessity to give, to do or ______.",
+                opts: ["to pay interest", "not to do", "to sign notarized deeds", "to rescind"],
+                ans: 1,
+                exp: "Art. 1156 text explicitly states: 'to give, to do or not to do.'"
+            },
+            {
+                q: "2. Receiving an accidental G-Cash money transfer creates an obligation to return it under:",
+                opts: ["Negotiorum Gestio", "Solutio Indebiti", "Novation", "Compensation"],
+                ans: 1,
+                exp: "Solutio Indebiti (Art. 2154) governs mistaken payments."
+            },
+            {
+                q: "3. In a Joint Obligation with 3 debtors owing ₱30,000 to 1 creditor, how much can the creditor collect from Debtor A alone?",
+                opts: ["₱30,000", "₱10,000", "₱15,000", "Nothing"],
+                ans: 1,
+                exp: "In joint obligations, liability is divided into proportionate shares (₱30,000 / 3 = ₱10,000)."
+            },
+            {
+                q: "4. (True/False) As a general rule under Art. 1169, a debtor incurs legal delay (mora) automatically when the due date arrives without need for demand.",
+                opts: ["True", "False"],
+                ans: 1,
+                exp: "False! General rule is 'No demand, no delay' (Art. 1169)."
+            },
+            {
+                q: "5. Damage caused by negligence where no pre-existing contractual relation exists is called:",
+                opts: ["Quasi-Contract", "Quasi-Delict (Tort)", "Criminal Felonies", "Breach of Tenor"],
+                ans: 1,
+                exp: "Quasi-delicts (Art. 2176) cover fault or negligence causing damage without contract."
+            },
+            {
+                q: "6. Which requisite is missing in a verbal agreement to hire a hitman?",
+                opts: ["Consent", "Licit Object & Cause", "High Price", "Notarization"],
+                ans: 1,
+                exp: "Contracts contrary to law have an illegal object/cause and are void ab initio (Art. 1409)."
+            },
+            {
+                q: "7. The extinguishment of an obligation by replacing it with a new one is called:",
+                opts: ["Novation", "Condonation", "Compensation", "Confusion"],
+                ans: 0,
+                exp: "Novation (Art. 1291) modifies or substitutes an existing obligation with a new one."
+            },
+            {
+                q: "8. (True/False) Verbal contracts for the sale of land are Void.",
+                opts: ["True", "False"],
+                ans: 1,
+                exp: "False! They are valid but Unenforceable under the Statute of Frauds (Art. 1403)."
+            },
+            {
+                q: "9. Essential requisites of a contract under Art. 1318 are Consent, Object, and ______.",
+                opts: ["Cause", "Motive", "Witness", "Seals"],
+                ans: 0,
+                exp: "Art. 1318 requires Consent, Object, and Cause."
+            },
+            {
+                q: "10. An extraordinary event that cannot be foreseen or avoided is legally called:",
+                opts: ["Force majeure / Caso fortuito", "Mora solvendi", "Dolo causante", "Lesion"],
+                ans: 0,
+                exp: "Caso fortuito / fortuitous event (Art. 1174) exempts debtor from liability when elements are met."
+            }
+        ];
+
+        // Legal Glossary Data
+        const glossaryData = [
+            { term: "Solutio Indebiti", meaning: "Undue payment made by mistake. Creates obligation to return." },
+            { term: "Negotiorum Gestio", meaning: "Voluntary management of another's abandoned business or property." },
+            { term: "Caso Fortuito", meaning: "Fortuitous event; unavoidable event independent of human will." },
+            { term: "Mora Solvendi", meaning: "Delay on the part of the debtor to fulfill obligation." },
+            { term: "Mora Accipiendi", meaning: "Delay on the part of the creditor to accept performance." },
+            { term: "Dolo Causante", meaning: "Causal fraud; fraud that induces a party to enter into contract." },
+            { term: "Culpa Aquiliana", meaning: "Civil negligence independent of contract (Quasi-delict)." },
+            { term: "Stipulation Pour Autrui", meaning: "Contractual stipulation conferring a favor upon a third person." },
+            { term: "Culpa Contractual", meaning: "Negligence in the performance of a pre-existing contractual obligation." },
+            { term: "Vinculum Juris", meaning: "The legal tie or bond that binds parties in an obligation." },
+            { term: "Void Ab Initio", meaning: "Void from the very beginning; producing no legal effect." },
+            { term: "Lesion", meaning: "Inadequacy of cause or price causing economic injury." }
+        ];
+
+        // Scenario Solver Render
+        let selectedScenario = 0;
+        function renderScenarios() {
+            const selector = document.getElementById('scenario-selector');
+            selector.innerHTML = '';
+            scenariosData.forEach((sc, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `px-3.5 py-2 rounded-xl text-xs font-bold border transition-all ${idx === selectedScenario ? 'bg-gold-600 text-navy-950 border-gold-500 shadow-md' : 'bg-navy-900 text-slate-300 border-slate-800 hover:border-slate-700'}`;
+                btn.onclick = () => { selectedScenario = idx; renderScenarios(); };
+                btn.innerHTML = `<i class="fa-solid fa-folder-open mr-1"></i> Scenario ${idx + 1}: ${sc.shortTitle}`;
+                selector.appendChild(btn);
+            });
+
+            const data = scenariosData[selectedScenario];
+            const display = document.getElementById('active-scenario-card');
+            
+            let choicesHTML = '';
+            data.choices.forEach((c, cIdx) => {
+                choicesHTML += `
+                    <button onclick="evaluateChoice(${cIdx})" class="w-full text-left p-3.5 bg-navy-950 hover:bg-slate-800/80 rounded-xl border border-slate-800 text-xs sm:text-sm text-slate-200 transition-colors flex items-start gap-2">
+                        <span class="w-5 h-5 rounded-full bg-navy-900 border border-slate-700 flex items-center justify-center font-bold text-[11px] text-gold-400 shrink-0 mt-0.5">${String.fromCharCode(65 + cIdx)}</span>
+                        <span>${c.text}</span>
+                    </button>
+                `;
+            });
+
+            display.innerHTML = `
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <span class="text-xs font-bold text-gold-400 uppercase tracking-widest"><i class="fa-solid fa-gavel mr-1"></i> ${data.badge}</span>
+                    <span class="text-xs bg-navy-950 text-slate-400 px-2.5 py-0.5 rounded border border-slate-800">Case #${data.id + 1}</span>
+                </div>
+                <h3 class="text-2xl font-serif font-bold text-white">${data.title}</h3>
+                <div class="bg-navy-950 p-4 rounded-xl border border-slate-800 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    <strong class="text-gold-400 block mb-1"><i class="fa-solid fa-file-contract mr-1"></i> Factual Background:</strong>
+                    ${data.facts}
+                </div>
+                
+                <div class="space-y-2">
+                    <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block">Choose Your Legal Diagnosis:</label>
+                    <div class="space-y-2">${choicesHTML}</div>
+                </div>
+
+                <div id="scenario-feedback" class="hidden p-4 rounded-xl text-xs sm:text-sm space-y-2"></div>
+            `;
+        }
+
+        function evaluateChoice(choiceIdx) {
+            const data = scenariosData[selectedScenario];
+            const choice = data.choices[choiceIdx];
+            const feedback = document.getElementById('scenario-feedback');
+            feedback.classList.remove('hidden', 'bg-emerald-950/80', 'border-emerald-500/50', 'text-emerald-300', 'bg-rose-950/80', 'border-rose-500/50', 'text-rose-300');
+
+            if (choice.correct) {
+                feedback.classList.add('bg-emerald-950/80', 'border', 'border-emerald-500/50', 'text-emerald-300');
+                feedback.innerHTML = `
+                    <p class="font-bold"><i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> Correct Diagnosis!</p>
+                    <p>${choice.feedback}</p>
+                    <p class="text-xs text-slate-300 mt-2 border-t border-emerald-500/30 pt-2 font-mono"><strong>Civil Code Basis:</strong> ${data.legalBasis}</p>
+                `;
+            } else {
+                feedback.classList.add('bg-rose-950/80', 'border', 'border-rose-500/50', 'text-rose-300');
+                feedback.innerHTML = `
+                    <p class="font-bold"><i class="fa-solid fa-circle-xmark text-rose-400 mr-1"></i> Incorrect Assessment</p>
+                    <p>${choice.feedback}</p>
+                `;
+            }
+        }
+
+        // Flashcards Logic
+        let activeDeck = [...flashcardDeck];
+        let currentDeckIndex = 0;
+        let isCardFlipped = false;
+        let masteredCards = new Set();
+
+        function filterDeck(level) {
+            document.querySelectorAll('.deck-filter-btn').forEach(b => {
+                b.className = "deck-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-navy-800 text-slate-300 border border-slate-700";
+            });
+            event.target.className = "deck-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-gold-600 text-navy-950";
+
+            if (level === 'all') {
+                activeDeck = [...flashcardDeck];
+            } else {
+                activeDeck = flashcardDeck.filter(c => c.level === level);
+            }
+            currentDeckIndex = 0;
+            renderActiveCard();
+        }
+
+        function renderActiveCard() {
+            if (activeDeck.length === 0) return;
+            const card = activeDeck[currentDeckIndex];
+            document.getElementById('card-front').innerText = card.front;
+            document.getElementById('card-back').innerText = card.back;
+            document.getElementById('card-article').innerText = card.article;
+            document.getElementById('deck-progress-text').innerText = `Card ${currentDeckIndex + 1} of ${activeDeck.length}`;
+            document.getElementById('deck-level-badge').innerText = card.level;
+
+            isCardFlipped = false;
+            document.getElementById('flashcard-inner').classList.remove('rotate-y-180');
+
+            const masterBtn = document.getElementById('master-btn-text');
+            if (masteredCards.has(card.front)) {
+                masterBtn.innerText = "Mastered ✓";
+            } else {
+                masterBtn.innerText = "Mark Mastered";
+            }
+        }
+
+        function flipActiveCard() {
+            isCardFlipped = !isCardFlipped;
+            const inner = document.getElementById('flashcard-inner');
+            if (isCardFlipped) inner.classList.add('rotate-y-180');
+            else inner.classList.remove('rotate-y-180');
+        }
+
+        function nextActiveCard() {
+            currentDeckIndex = (currentDeckIndex + 1) % activeDeck.length;
+            renderActiveCard();
+        }
+
+        function prevActiveCard() {
+            currentDeckIndex = (currentDeckIndex - 1 + activeDeck.length) % activeDeck.length;
+            renderActiveCard();
+        }
+
+        function markMastered() {
+            const card = activeDeck[currentDeckIndex];
+            if (masteredCards.has(card.front)) {
+                masteredCards.delete(card.front);
+            } else {
+                masteredCards.add(card.front);
+            }
+            renderActiveCard();
+        }
+
+        // Quiz Render & Grading
+        function renderQuizQuestions() {
+            const container = document.getElementById('quiz-questions-list');
+            container.innerHTML = '';
+            quizData.forEach((qItem, idx) => {
+                const card = document.createElement('div');
+                card.className = "bg-navy-900 p-6 rounded-2xl border border-slate-800 space-y-3";
+                
+                let optsHTML = '';
+                qItem.opts.forEach((opt, oIdx) => {
+                    optsHTML += `
+                        <label class="flex items-center space-x-3 p-3 bg-navy-950 hover:bg-slate-800/80 rounded-xl border border-slate-800 cursor-pointer transition-colors">
+                            <input type="radio" name="quiz-q-${idx}" value="${oIdx}" class="text-gold-500 focus:ring-gold-500 bg-navy-900 border-slate-700">
+                            <span class="text-xs sm:text-sm text-slate-200">${opt}</span>
+                        </label>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <h4 class="font-bold text-white text-sm sm:text-base">${qItem.q}</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">${optsHTML}</div>
+                    <div id="quiz-feedback-${idx}" class="hidden p-3 rounded-lg text-xs leading-relaxed"></div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function gradePracticeQuiz() {
+            let score = 0;
+            quizData.forEach((qItem, idx) => {
+                const selected = document.querySelector(`input[name="quiz-q-${idx}"]:checked`);
+                const feedback = document.getElementById(`quiz-feedback-${idx}`);
+                feedback.classList.remove('hidden', 'bg-emerald-950/80', 'border-emerald-500/50', 'text-emerald-300', 'bg-rose-950/80', 'border-rose-500/50', 'text-rose-300');
+
+                if (selected && parseInt(selected.value) === qItem.ans) {
+                    score++;
+                    feedback.classList.add('bg-emerald-950/80', 'border', 'border-emerald-500/50', 'text-emerald-300');
+                    feedback.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> <strong>Correct!</strong> ${qItem.exp}`;
+                } else {
+                    feedback.classList.add('bg-rose-950/80', 'border', 'border-rose-500/50', 'text-rose-300');
+                    feedback.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-400 mr-1"></i> <strong>Incorrect.</strong> Correct answer: <em>${qItem.opts[qItem.ans]}</em>. <br>${qItem.exp}`;
+                }
+            });
+
+            const scoreDisplay = document.getElementById('quiz-score-display');
+            const scoreNum = document.getElementById('quiz-score-num');
+            scoreDisplay.classList.remove('hidden');
+            scoreNum.innerText = `${score} / ${quizData.length}`;
+
+            const certWrapper = document.getElementById('certificate-wrapper');
+            if (score >= 7) {
+                certWrapper.classList.remove('hidden');
+                document.getElementById('cert-issue-date').innerText = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                certWrapper.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                certWrapper.classList.add('hidden');
+            }
+        }
+
+        // Glossary Render
+        function renderGlossary() {
+            const grid = document.getElementById('glossary-grid');
+            grid.innerHTML = '';
+            glossaryData.forEach(g => {
+                const card = document.createElement('div');
+                card.className = "searchable-card bg-navy-900 p-4 rounded-xl border border-slate-800 space-y-1";
+                card.innerHTML = `
+                    <strong class="text-gold-400 font-serif text-sm block">${g.term}</strong>
+                    <p class="text-xs text-slate-300 leading-relaxed">${g.meaning}</p>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+
+            const target = document.getElementById(tabId);
+            const btn = document.getElementById('tab-' + tabId);
+
+            if (target) target.classList.remove('hidden');
+            if (btn) btn.classList.add('active');
+
+            window.scrollTo({ top: 120, behavior: 'smooth' });
+        }
+
+        // Search Filter Logic
+        const searchInput = document.getElementById('global-search');
+        const clearBtn = document.getElementById('clear-search');
+        const noResults = document.getElementById('no-results');
+
+        searchInput.addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase().trim();
+            if (query.length > 0) clearBtn.classList.remove('hidden');
+            else clearBtn.classList.add('hidden');
+
+            let matches = 0;
+            document.querySelectorAll('.searchable-card').forEach(card => {
+                if (card.textContent.toLowerCase().includes(query)) {
+                    card.classList.remove('hidden');
+                    matches++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            if (matches === 0 && query.length > 0) noResults.classList.remove('hidden');
+            else noResults.classList.add('hidden');
+        });
+
+        function clearSearch() {
+            searchInput.value = '';
+            clearBtn.classList.add('hidden');
+            noResults.classList.add('hidden');
+            document.querySelectorAll('.searchable-card').forEach(card => card.classList.remove('hidden'));
+        }
+
+        function quickSearch(term) {
+            switchTab('modules');
+            searchInput.value = term;
+            searchInput.dispatchEvent(new Event('input'));
+        }
+
+        // Dark/Light Mode Toggle
+        let isDarkMode = true;
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            if (isDarkMode) {
+                html.classList.add('dark');
+                icon.className = "fa-solid fa-moon";
+            } else {
+                html.classList.remove('dark');
+                icon.className = "fa-solid fa-sun text-gold-400";
+            }
+        }
+
+        // Proposal Modal
+        function openProposalModal() { document.getElementById('proposal-modal').classList.remove('hidden'); }
+        function closeProposalModal() { document.getElementById('proposal-modal').classList.add('hidden'); }
+
+        // Initialize App
+        window.onload = function() {
+            renderScenarios();
+            renderActiveCard();
+            renderQuizQuestions();
+            renderGlossary();
+        };
+    </script>
+</body>
+</html>
